@@ -43,7 +43,7 @@ def main():
         myList[myList.index(number, j)] = myList[j]
         myList[j] = number
 
-    print("\noutput:", myList)
+    # print("\noutput:", myList)
     """
     Θ(n^2)
     The last element is already sorted when the secnod last element is sorted in selection sort.
@@ -55,7 +55,8 @@ def main():
     Θ(n)
 
     2.2-4
-    Programming in a logical way that an input can be already solved or nearly solved.
+    For a good best-case running time, modify an algorithm to first randomly produce output and 
+    then check whether or not it satisfies the goal of the algorithm. If so, produce this output and halt.
     """
 
 
