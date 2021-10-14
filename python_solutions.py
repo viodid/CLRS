@@ -9,16 +9,17 @@ def main():
 
     2.1-2
     """
-    LIST = random.randint(20, size=100).tolist()
-    for i in range(1, len(LIST)):
-        key = LIST[i]
+    myList = random.randint(20, size=100).tolist()
+    for i in range(1, len(myList)):
+        key = myList[i]
         j = i - 1
-        while j >= 0 and LIST[j] < key:
-            LIST[j + 1] = LIST[j]
+        while j >= 0 and myList[j] < key:
+            myList[j + 1] = myList[j]
             j -= 1
-        LIST[j + 1] = key
+        myList[j + 1] = key
 
-    print(LIST)
+    # print(myList)
+    # Θ(n^2), Ω(n)
 
     """
     ------
@@ -26,17 +27,36 @@ def main():
     Exercises page 29
 
     2.2-1
-    #O(n^3)
+    #Θ(n^3)
 
-    -------
 
     2.2-2
     """
+    myList = random.randint(5, size=20).tolist()
+    # print("input:", myList)
 
-    for i in range(2, len(LIST)):
-        number = LIST[i]
-        if number > LIST[i - 1]:
-            number = LIST[i - 1]
+    for j in range(len(myList) - 1):
+        number = myList[j]
+        for i in range(j + 1, len(myList)):
+            if number > myList[i]:
+                number = myList[i]
+        myList[myList.index(number, j)] = myList[j]
+        myList[j] = number
+
+    print("\noutput:", myList)
+    """
+    Θ(n^2)
+    The last element is already sorted when the secnod last element is sorted in selection sort.
+    Ω(n^2), Θ(n^2)
+    """
+
+    """
+    2.2-3
+    Θ(n)
+
+    2.2-4
+    Programming in a logical way that an input can be already solved or nearly solved.
+    """
 
 
 main()
