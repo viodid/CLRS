@@ -19,7 +19,7 @@ def main():
         myList[j + 1] = key
 
     # print(myList)
-    # Θ(n^2), Ω(n)
+    # Θ(n**2), Ω(n)
 
     """
     ------
@@ -27,7 +27,7 @@ def main():
     Exercises page 29
 
     2.2-1
-    #Θ(n^3)
+    #Θ(n**3)
 
 
     2.2-2
@@ -45,9 +45,9 @@ def main():
 
     # print("\noutput:", myList)
     """
-    Θ(n^2)
+    Θ(n**2)
     The last element is already sorted when the secnod last element is sorted in selection sort.
-    Ω(n^2), Θ(n^2)
+    Ω(n**2), Θ(n**2)
     """
 
     """
