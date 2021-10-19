@@ -7,13 +7,14 @@ CLRS : Introduction to Algorithms
 
 def main():
     # creating random list
-    myList = random.randint(5, size=16).tolist()
+    myList = random.randint(5, size=1).tolist()
     # comparing input list vs output afterwards
-    print(f"input: {myList}")
+    # print(f"input: {myList}")
     # sorting functions (toggle True to apply)
     insertionSort(myList)
     selectionSort(myList)
-    print(f"output:{myList}")
+    merge([2, 3, 4, 5, 6])
+    # print(f"output:{myList}")
 
 
 """
@@ -79,21 +80,64 @@ then check whether or not it satisfies the goal of the algorithm. If so, produce
 """
 Exercises page 37 - 39
 
-2.3-2
+2.3-22
 """
 
 
-def merge(myList, toggle=False):
+def merge(myList):
 
     """
     merge(A*[p, q, r**])
     n1 = q - p + 1
     n2 = r - q
+    let L[n1] and R[n2] be new arrays
+    for i = 0 to n1
+        L[i] = A[p + i]
+    for j = 0 to n2
+        R[i] = A[q + j]
 
-
+    for k = p to r
+        if L.lenght is 0
+            A[k] = R[0..n2]
+        else if R.lenght is 0
+            A[k] = L[0..n1]
+        else if L[0] <= R[0]
+            A[k] = L[0]
+            remove L[0] element from L
+        else
+            A[k] = R[0]
+            remove R[0] element from R
     *Array
     **indices such that p <= q < r assuming that the subarrays A[p...q] and A[q+1...r] are in sorted order.
     """
+    # handle center of the list
+    c = float(len(myList)) / 2  # center of the list
+    if c % 2 != 0:
+        c += 0.5
+    c = int(c)
+    n1 = c  # number of items firs half of the list
+    n2 = len(myList) - c  # number of items second half of the list
+    L = [None] * n1  # initialize left and right list
+    R = [None] * n2
+    # populate lists
+    for i in range(n1):
+        L[i] = myList[i]
+    for j in range(n2):
+        R[j] = myList[j + c]
+    # sort and merge both lists
+    for k in range(len(myList)):
+        if len(L) == 0:
+            myList[k:] = R
+            break
+        elif len(R) == 0:
+            myList[k:] = L
+            break
+        elif L[0] <= R[0]:
+            myList[k] = L[0]
+            L.remove(L[0])
+        else:
+            myList[k] = R[0]
+            R.remove(R[0])
 
 
 main()
