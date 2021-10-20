@@ -1,4 +1,5 @@
 from numpy import random
+import math
 
 """
 CLRS : Introduction to Algorithms
@@ -177,22 +178,21 @@ def binarySearch(myList, v):
         else if v > A1[n/2];
             A1.drop(A1[0...n/2])
     """
-    print(myList)
-    if len(myList) % 2 != 0:
-        c = int((len(myList) / 2) - 0.5)  # c = center of the list
-    else:
-        c = int(len(myList) / 2)
-
+    c = math.floor((len(myList) / 2))  # c = center of the list
     if v == myList[c]:
         return "found"
     elif len(myList) == 1:
         return None
     elif v < myList[c]:
-        # del myList[n:]
         return binarySearch(myList[:c], v)
     elif v > myList[c]:
-        # del myList[:n]
         return binarySearch(myList[c + 1 :], v)
+    # Θ(logn), Ω(1)
+
+
+"""
+Exercise 2.3-7⋆
+"""
 
 
 main()
