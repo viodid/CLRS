@@ -14,6 +14,7 @@ def main():
     insertionSort(myList)
     selectionSort(myList)
     merge([2, 3, 4, 5, 6])
+    print(binarySearch([1, 2, 3, 4, 5, 6, 7, 8, 9, 20, 31, 42, 55, 70], 1))
     # print(f"output:{myList}")
 
 
@@ -78,7 +79,7 @@ then check whether or not it satisfies the goal of the algorithm. If so, produce
 """
 
 """
-Exercises page 37 - 39
+Exercises page 37
 
 2.3-22
 """
@@ -138,6 +139,60 @@ def merge(myList):
         else:
             myList[k] = R[0]
             R.remove(R[0])
+
+    """
+    Exercises page 39
+
+    2.3-5
+    """
+
+
+def binarySearch(myList, v):
+    """
+    A[a1, a2...an] sorted secuence
+    v = number to match
+
+    ### Recursive ###
+    n = A.length
+    if v == A[n / 2]:
+        return "found"
+    else if A.length == 1:
+        return NULL
+    else if v < A[n/2]:
+        return binarySearch(A[0...n/2])
+    else if v > A[n/2];
+        return binarySearch(A[n/2...n])
+
+    ### Iterative ###
+    Create a copy of the secuence
+    A1 = A.copy
+    n = A1.length
+    while true:
+        if v == A1[n / 2]:
+            return "found"
+        else if A1.length == 1:
+            return NULL
+        else if v < A1[n/2]:
+            A1.drop(A1[n/2...n])
+        else if v > A1[n/2];
+            A1.drop(A1[0...n/2])
+    """
+    print(myList)
+    if len(myList) % 2 != 0:
+        c = int((len(myList) / 2) - 0.5)  # c = center of the list
+    else:
+        c = int(len(myList) / 2)
+
+    if v == myList[c]:
+        return "found"
+    elif len(myList) == 1:
+        return None
+    elif v < myList[c]:
+        # del myList[n:]
+        return binarySearch(myList[:c], v)
+    elif v > myList[c]:
+        # del myList[:n]
+        return binarySearch(myList[c + 1 :], v)
 
 
 main()
