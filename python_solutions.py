@@ -1,5 +1,5 @@
 from numpy import random
-import math
+from math import floor, ceil
 
 """
 CLRS : Introduction to Algorithms
@@ -14,10 +14,12 @@ def main():
     # sorting functions (toggle True to apply)
     insertionSort(myList)
     selectionSort(myList)
-    merge([2, 3, 4, 5, 6])
-    print(binarySearch([1, 2, 3, 4, 5, 6, 7, 8, 9, 20, 31, 42, 55, 70], 1))
+    merge([4, 5, 6, 1, 2, 3])
+    # print(binarySearch([1, 2, 3, 4, 5, 6, 7, 8, 9, 20, 31, 42, 55, 70], 1))
     # print(f"output:{myList}")
 
+
+# [p=4, 5, q=6, q+1=1, 2, r=3]
 
 """
 Exercises page 22
@@ -100,9 +102,9 @@ def merge(myList):
 
     for k = p to r
         if L.lenght is 0
-            A[k] = R[0..n2]
+            A[k..n] = R
         else if R.lenght is 0
-            A[k] = L[0..n1]
+            A[k..n] = L
         else if L[0] <= R[0]
             A[k] = L[0]
             remove L[0] element from L
@@ -113,10 +115,7 @@ def merge(myList):
     **indices such that p <= q < r assuming that the subarrays A[p...q] and A[q+1...r] are in sorted order.
     """
     # handle center of the list
-    c = float(len(myList)) / 2  # center of the list
-    if c % 2 != 0:
-        c += 0.5
-    c = int(c)
+    c = ceil(len(myList) / 2)  # center of the list
     n1 = c  # number of items firs half of the list
     n2 = len(myList) - c  # number of items second half of the list
     L = [None] * n1  # initialize left and right list
@@ -140,6 +139,10 @@ def merge(myList):
         else:
             myList[k] = R[0]
             R.remove(R[0])
+    print(myList)
+
+
+def mergeSort(myList, toggle=False):
 
     """
     Exercises page 39
@@ -178,7 +181,7 @@ def binarySearch(myList, v):
         else if v > A1[n/2];
             A1.drop(A1[0...n/2])
     """
-    c = math.floor((len(myList) / 2))  # c = center of the list
+    c = floor((len(myList) / 2))  # c = center of the list
     if v == myList[c]:
         return "found"
     elif len(myList) == 1:
@@ -193,6 +196,10 @@ def binarySearch(myList, v):
 """
 Exercise 2.3-7⋆
 """
+
+
+def existSum(myList, v):  # v = number to match
+    pass
 
 
 main()
