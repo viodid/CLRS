@@ -1,5 +1,4 @@
 from numpy import random
-from math import floor, ceil
 
 """
 CLRS : Introduction to Algorithms
@@ -8,15 +7,14 @@ CLRS : Introduction to Algorithms
 
 def main():
     # creating random list
-    myList = random.randint(5, size=1).tolist()
+    myList = random.randint(5, size=30).tolist()
     # comparing input list vs output afterwards
-    # print(f"input: {myList}")
+    print(f"input: {myList}")
     # sorting functions (toggle True to apply)
     insertionSort(myList)
     selectionSort(myList)
-    merge([4, 5, 6, 1, 2, 3])
-    # print(binarySearch([1, 2, 3, 4, 5, 6, 7, 8, 9, 20, 31, 42, 55, 70], 1))
-    # print(f"output:{myList}")
+    mergeSort(myList, True)
+    print(f"output:{myList}")
 
 
 # [p=4, 5, q=6, q+1=1, 2, r=3]
@@ -40,7 +38,7 @@ def insertionSort(myList, toggle=False):
         """
         Θ(n**2), Ω(n)
         """
-    return None
+        return None
 
 
 """
@@ -51,7 +49,7 @@ Exercises page 29
 
 
 2.2-2
-    """
+"""
 
 
 def selectionSort(myList, toggle=False):
@@ -88,7 +86,7 @@ Exercises page 37
 """
 
 
-def merge(myList):
+def merge(Arr, left, right):
 
     """
     merge(A*[p, q, r**])
@@ -114,41 +112,45 @@ def merge(myList):
     *Array
     **indices such that p <= q < r assuming that the subarrays A[p...q] and A[q+1...r] are in sorted order.
     """
-    # handle center of the list
-    c = ceil(len(myList) / 2)  # center of the list
-    n1 = c  # number of items firs half of the list
-    n2 = len(myList) - c  # number of items second half of the list
-    L = [None] * n1  # initialize left and right list
-    R = [None] * n2
-    # populate lists
-    for i in range(n1):
-        L[i] = myList[i]
-    for j in range(n2):
-        R[j] = myList[j + c]
-    # sort and merge both lists
-    for k in range(len(myList)):
-        if len(L) == 0:
-            myList[k:] = R
+    for k in range(len(Arr)):
+
+        if len(left) == 0:
+            Arr[k:] = right
             break
-        elif len(R) == 0:
-            myList[k:] = L
+
+        elif len(right) == 0:
+            Arr[k:] = left
             break
-        elif L[0] <= R[0]:
-            myList[k] = L[0]
-            L.remove(L[0])
+
+        elif left[0] <= right[0]:
+            Arr[k] = left[0]
+            left.remove(left[0])
+
         else:
-            myList[k] = R[0]
-            R.remove(R[0])
-    print(myList)
+            Arr[k] = right[0]
+            right.remove(right[0])
 
 
-def mergeSort(myList, toggle=False):
+def mergeSort(Arr, toggle=False):
 
     """
     Exercises page 39
 
     2.3-5
     """
+    if toggle:
+        if len(Arr) <= 1:
+            return
+
+        mid = len(Arr) // 2
+        left = Arr[:mid]
+        right = Arr[mid:]
+
+        mergeSort(left, True)
+        mergeSort(right, True)
+
+        merge(Arr, left, right)
+    return None
 
 
 def binarySearch(myList, v):
@@ -181,7 +183,7 @@ def binarySearch(myList, v):
         else if v > A1[n/2];
             A1.drop(A1[0...n/2])
     """
-    c = floor((len(myList) / 2))  # c = center of the list
+    c = len(myList) // 2  # c = center of the list
     if v == myList[c]:
         return "found"
     elif len(myList) == 1:
