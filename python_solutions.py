@@ -7,14 +7,16 @@ CLRS : Introduction to Algorithms
 
 def main():
     # creating random list
-    myList = random.randint(5, size=30).tolist()
+    myList = random.randint(8, size=10).tolist()
+    solution = []  # to store some algorithms solutions
     # comparing input list vs output afterwards
     print(f"input: {myList}")
     # sorting functions (toggle True to apply)
     insertionSort(myList)
     selectionSort(myList)
-    mergeSort(myList, True)
-    print(f"output:{myList}")
+    mergeSort(myList)
+    existSum(myList, 7, solution)
+    # print(f"output:{myList}")
 
 
 # [p=4, 5, q=6, q+1=1, 2, r=3]
@@ -88,30 +90,6 @@ Exercises page 37
 
 def merge(Arr, left, right):
 
-    """
-    merge(A*[p, q, r**])
-    n1 = q - p + 1
-    n2 = r - q
-    let L[n1] and R[n2] be new arrays
-    for i = 0 to n1
-        L[i] = A[p + i]
-    for j = 0 to n2
-        R[i] = A[q + j]
-
-    for k = p to r
-        if L.lenght is 0
-            A[k..n] = R
-        else if R.lenght is 0
-            A[k..n] = L
-        else if L[0] <= R[0]
-            A[k] = L[0]
-            remove L[0] element from L
-        else
-            A[k] = R[0]
-            remove R[0] element from R
-    *Array
-    **indices such that p <= q < r assuming that the subarrays A[p...q] and A[q+1...r] are in sorted order.
-    """
     for k in range(len(Arr)):
 
         if len(left) == 0:
@@ -200,8 +178,43 @@ Exercise 2.3-7⋆
 """
 
 
-def existSum(myList, v):  # v = number to match
-    pass
+def existSum(Arr, v, solution, toggle=False):  # v = number to match
+    def merge(Arr, left, right, v, solution):
+
+        for k in range(len(Arr)):
+
+            if len(left) == 0:
+                Arr[k:] = right
+                break
+
+            elif len(right) == 0:
+                Arr[k:] = left
+                break
+
+            elif left[0] <= right[0]:
+                if left[0] + right[0] == v:
+                    solution.append([left[0], right[0]])
+                Arr[k] = left[0]
+                left.remove(left[0])
+
+            else:
+                if right[0] + left[0] == v:
+                    solution.append([left[0], right[0]])
+                Arr[k] = right[0]
+                right.remove(right[0])
+
+    if toggle:
+        if len(Arr) <= 1:
+            return
+
+        mid = len(Arr) // 2
+        left = Arr[:mid]
+        right = Arr[mid:]
+
+        existSum(left, v, solution, True)
+        existSum(right, v, solution, True)
+
+        merge(Arr, left, right, v, solution)
 
 
 main()
