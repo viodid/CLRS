@@ -7,7 +7,7 @@ CLRS : Introduction to Algorithms
 
 def main():
     # creating random list
-    myList = random.randint(8, size=10).tolist()
+    myList = random.randint(8, size=20).tolist()
     solution = []  # to store some algorithms solutions
     # comparing input list vs output afterwards
     print(f"input: {myList}")
@@ -15,8 +15,8 @@ def main():
     insertionSort(myList)
     selectionSort(myList)
     mergeSort(myList)
-    existSum(myList, 7, solution)
-    # print(f"output:{myList}")
+    existSum(myList, 2, solution)
+    print(f"output:{myList}")
 
 
 # [p=4, 5, q=6, q+1=1, 2, r=3]
@@ -217,4 +217,64 @@ def existSum(Arr, v, solution, toggle=False):  # v = number to match
         merge(Arr, left, right, v, solution)
 
 
+def max_heapify(A, i):
+
+    if i * 2 + 1 > len(A):
+        return
+
+    # Assuming array starts at 1
+    root = A[i - 1]
+    left = A[i * 2 - 1]
+    right = A[i * 2]
+
+    if (left - root) > (right - root) and (left - root) > 0:
+        A[i - 1], A[i * 2 - 1] = A[i * 2 - 1], A[i - 1]
+
+    elif (right - root) > (left - root) and (right - root) > 0:
+        A[i - 1], A[i * 2] = A[i * 2], A[i - 1]
+
+    print(A)
+    max_heapify(A, i * 2)
+    max_heapify(A, i * 2 + 1)
+
+
+def heapSort(Arr, toggle=False):
+    for i in range(len(Arr) // 2, 0, -1):
+        max_heapify(Arr, i)
+
+
 main()
+
+""" Exercise 6.2-1 page 156
+    [27, 17, 10, 16, 13, 9, 1, 5, 7, 12, 4, 8, 3, 0]
+"""
+
+"""
+    6.2-2
+"""
+
+
+def min_heapify(A, i):
+
+    if i * 2 + 1 > len(A):
+        return
+
+    # Assuming array starts at 1
+    root = A[i - 1]
+    left = A[i * 2 - 1]
+    right = A[i * 2]
+
+    if (left - root) < (right - root) and (left - root) < 0:
+        A[i - 1], A[i * 2 - 1] = A[i * 2 - 1], A[i - 1]
+
+    elif (right - root) < (left - root) and (right - root) < 0:
+        A[i - 1], A[i * 2] = A[i * 2], A[i - 1]
+
+    max_heapify(A, i * 2)
+    max_heapify(A, i * 2 + 1)
+
+
+arr = [1, 4, 3, 8, 11, 20, 2, 200, 7, 90]
+print(arr)
+heapSort(arr)
+print(arr)
