@@ -218,18 +218,19 @@ def existSum(Arr, v, solution, toggle=False):  # v = number to match
 
 
 def max_heapify(A, i):
-
     if i > len(A) // 2:
         return
 
     # Assuming array starts at 1
     root = A[i - 1]
     left = A[i * 2 - 1]
+    # assuming last leaves just have one left node
     try:
         right = A[i * 2]
     except IndexError:
         right = 0
 
+    # select the most significant leaf
     if (left - root) > (right - root) and (left - root) > 0:
         A[i - 1], A[i * 2 - 1] = A[i * 2 - 1], A[i - 1]
         max_heapify(A, i * 2)
@@ -309,13 +310,14 @@ def iter_max_heapify(A, i):
 
 
 def heapSort(A, toggle=False):
-    return_list = []
+    return_list = [None] * len(A)
     build_max_heap(A)
+    # i = length.heap decrement by 1 each loop iteration
     for i in range(len(A) - 1, -1, -1):
+        # swap last heap element with the heap's root
         A[0], A[i] = A[i], A[0]
-        return_list.insert(0, A.pop())
+        return_list[i] = A.pop()
         max_heapify(A, 1)
-
     return return_list
 
 
@@ -323,9 +325,9 @@ arr = [4, 1, 3, 2, 16, 9, 10, 14, 8, 7]
 arr1 = [4, 1, 3, 2, 16, 9, 10, 14, 8, 7]
 arr2 = [5, 13, 2, 25, 7, 17, 20, 8, 4]
 
-print(arr1)
-a = heapSort(arr1)
-print(arr1)
+print(arr2)
+a = heapSort(arr2)
+print(arr2)
 print(a)
 
 
