@@ -219,31 +219,33 @@ def existSum(Arr, v, solution, toggle=False):  # v = number to match
 
 def max_heapify(A, i):
 
-    if i * 2 + 1 > len(A):
+    if i > len(A) // 2:
         return
 
     # Assuming array starts at 1
     root = A[i - 1]
     left = A[i * 2 - 1]
-    right = A[i * 2]
+    try:
+        right = A[i * 2]
+    except IndexError:
+        right = 0
 
     if (left - root) > (right - root) and (left - root) > 0:
         A[i - 1], A[i * 2 - 1] = A[i * 2 - 1], A[i - 1]
+        max_heapify(A, i * 2)
 
     elif (right - root) > (left - root) and (right - root) > 0:
         A[i - 1], A[i * 2] = A[i * 2], A[i - 1]
+        max_heapify(A, i * 2 + 1)
 
-    print(A)
-    max_heapify(A, i * 2)
-    max_heapify(A, i * 2 + 1)
+    else:
+        return
 
 
-def heapSort(Arr, toggle=False):
+def build_max_heap(Arr):
     for i in range(len(Arr) // 2, 0, -1):
         max_heapify(Arr, i)
 
-
-main()
 
 """ Exercise 6.2-1 page 156
     [27, 17, 10, 16, 13, 9, 1, 5, 7, 12, 4, 8, 3, 0]
@@ -256,7 +258,7 @@ main()
 
 def min_heapify(A, i):
 
-    if i * 2 + 1 > len(A):
+    if i > len(A) // 2:
         return
 
     # Assuming array starts at 1
@@ -274,7 +276,57 @@ def min_heapify(A, i):
     max_heapify(A, i * 2 + 1)
 
 
-arr = [1, 4, 3, 8, 11, 20, 2, 200, 7, 90]
-print(arr)
-heapSort(arr)
-print(arr)
+""" 
+6.2-5
+"""
+
+
+def iter_max_heapify(A, i):
+
+    while i <= len(A) // 2:
+
+        root = A[i - 1]
+        left = A[i * 2 - 1]
+        try:
+            right = A[i * 2]
+        except IndexError:
+            right = 0
+
+        if (left - root) > (right - root) and (left - root) > 0:
+            A[i - 1], A[i * 2 - 1] = A[i * 2 - 1], A[i - 1]
+            i *= 2
+
+        elif (right - root) > (left - root) and (right - root) > 0:
+            A[i - 1], A[i * 2] = A[i * 2], A[i - 1]
+            i = i * 2 + 1
+        else:
+            break
+
+
+"""
+6.4-1
+"""
+
+
+def heapSort(A, toggle=False):
+    return_list = []
+    build_max_heap(A)
+    for i in range(len(A) - 1, -1, -1):
+        A[0], A[i] = A[i], A[0]
+        return_list.insert(0, A.pop())
+        max_heapify(A, 1)
+
+    return return_list
+
+
+arr = [4, 1, 3, 2, 16, 9, 10, 14, 8, 7]
+arr1 = [4, 1, 3, 2, 16, 9, 10, 14, 8, 7]
+arr2 = [5, 13, 2, 25, 7, 17, 20, 8, 4]
+
+print(arr1)
+a = heapSort(arr1)
+print(arr1)
+print(a)
+
+
+main()
