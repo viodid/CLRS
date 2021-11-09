@@ -246,6 +246,7 @@ def max_heapify(A, i):
 def build_max_heap(Arr):
     for i in range(len(Arr) // 2, 0, -1):
         max_heapify(Arr, i)
+        print(Arr, i)
 
 
 """ Exercise 6.2-1 page 156
@@ -315,20 +316,15 @@ def heapSort(A, toggle=False):
     # i = length.heap decrement by 1 each loop iteration
     for i in range(len(A) - 1, -1, -1):
         # swap last heap element with the heap's root
-        A[0], A[i] = A[i], A[0]
+        A[0], A[len(A) - 1] = A[len(A) - 1], A[0]
         return_list[i] = A.pop()
         max_heapify(A, 1)
     return return_list
 
 
-arr = [4, 1, 3, 2, 16, 9, 10, 14, 8, 7]
-arr1 = [4, 1, 3, 2, 16, 9, 10, 14, 8, 7]
 arr2 = [5, 13, 2, 25, 7, 17, 20, 8, 4]
 
-print(arr2)
-a = heapSort(arr2)
-print(arr2)
-print(a)
+print(heapSort(arr2))
 
 
 main()
