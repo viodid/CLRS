@@ -7,7 +7,7 @@ CLRS : Introduction to Algorithms
 
 def main():
     # creating random list
-    myList = random.randint(8, size=20).tolist()
+    myList = random.randint(10, size=15).tolist()
     solution = []  # to store some algorithms solutions
     # comparing input list vs output afterwards
     print(f"input: {myList}")
@@ -16,10 +16,9 @@ def main():
     selectionSort(myList)
     mergeSort(myList)
     existSum(myList, 2, solution)
-    print(f"output:{myList}")
+    return_list = heapSort(myList)
+    print(f"output:{myList}, {return_list}")
 
-
-# [p=4, 5, q=6, q+1=1, 2, r=3]
 
 """
 Exercises page 22
@@ -218,6 +217,7 @@ def existSum(Arr, v, solution, toggle=False):  # v = number to match
 
 
 def max_heapify(A, i):
+
     if i > len(A) // 2:
         return
 
@@ -231,11 +231,11 @@ def max_heapify(A, i):
         right = 0
 
     # select the most significant leaf
-    if (left - root) > (right - root) and (left - root) > 0:
+    if (left - root) >= (right - root) and (left - root) > 0:
         A[i - 1], A[i * 2 - 1] = A[i * 2 - 1], A[i - 1]
         max_heapify(A, i * 2)
 
-    elif (right - root) > (left - root) and (right - root) > 0:
+    elif (right - root) >= (left - root) and (right - root) > 0:
         A[i - 1], A[i * 2] = A[i * 2], A[i - 1]
         max_heapify(A, i * 2 + 1)
 
@@ -246,7 +246,6 @@ def max_heapify(A, i):
 def build_max_heap(Arr):
     for i in range(len(Arr) // 2, 0, -1):
         max_heapify(Arr, i)
-        print(Arr, i)
 
 
 """ Exercise 6.2-1 page 156
@@ -294,11 +293,11 @@ def iter_max_heapify(A, i):
         except IndexError:
             right = 0
 
-        if (left - root) > (right - root) and (left - root) > 0:
+        if (left - root) >= (right - root) and (left - root) > 0:
             A[i - 1], A[i * 2 - 1] = A[i * 2 - 1], A[i - 1]
             i *= 2
 
-        elif (right - root) > (left - root) and (right - root) > 0:
+        elif (right - root) >= (left - root) and (right - root) > 0:
             A[i - 1], A[i * 2] = A[i * 2], A[i - 1]
             i = i * 2 + 1
         else:
@@ -310,9 +309,11 @@ def iter_max_heapify(A, i):
 """
 
 
-def heapSort(A, toggle=False):
+def heapSort(A):
+    # initilize future final sorted list
     return_list = [None] * len(A)
     build_max_heap(A)
+    # print(A)
     # i = length.heap decrement by 1 each loop iteration
     for i in range(len(A) - 1, -1, -1):
         # swap last heap element with the heap's root
@@ -322,9 +323,26 @@ def heapSort(A, toggle=False):
     return return_list
 
 
-arr2 = [5, 13, 2, 25, 7, 17, 20, 8, 4]
+"""
+exercise 6.5-1
+"""
 
-print(heapSort(arr2))
+
+def heap_extract_max(A):
+    if len(A) <= 1:
+        raise IndexError
+    max = A[0]
+    # - 1 to access the last element in the list (len(list) out of range)
+    A[0], A[len(A) - 1] = A[len(A) - 1], A[0]
+    A.pop()
+    max_heapify(A, 1)
+    return max
+
+
+heap = [15, 13, 9, 5, 12, 8, 7, 4, 0, 6, 2, 1]
+
+
+arr2 = [5, 13, 2, 25, 7, 17, 20, 8, 4]
 
 
 main()
