@@ -7,7 +7,7 @@ CLRS : Introduction to Algorithms
 
 def main():
     # creating random list
-    myList = random.randint(10, size=15).tolist()
+    myList = random.randint(10, size=20).tolist()
     solution = []  # to store some algorithms solutions
     # comparing input list vs output afterwards
     print(f"input: {myList}")
@@ -224,11 +224,14 @@ def max_heapify(A, i):
     # Assuming array starts at 1
     root = A[i - 1]
     left = A[i * 2 - 1]
-    # assuming last leaves just have one left node
+    # assuming last leaf is "right leaf orphan" i.e ony one child (left)
     try:
         right = A[i * 2]
     except IndexError:
-        right = 0
+        if left - root > 0:
+            A[i - 1], A[i * 2 - 1] = A[i * 2 - 1], A[i - 1]
+            max_heapify(A, i * 2)
+        return
 
     # select the most significant leaf
     if (left - root) >= (right - root) and (left - root) > 0:
@@ -239,13 +242,22 @@ def max_heapify(A, i):
         A[i - 1], A[i * 2] = A[i * 2], A[i - 1]
         max_heapify(A, i * 2 + 1)
 
-    else:
-        return
+    return
 
 
 def build_max_heap(Arr):
     for i in range(len(Arr) // 2, 0, -1):
         max_heapify(Arr, i)
+
+
+a = [8, 7, 5, 1, 4, 9]
+build_max_heap(a)
+print(a)
+
+
+def build_min_heap(Arr):
+    for i in range(len(Arr) // 2, 0, -1):
+        min_heapify(Arr, i)
 
 
 """ Exercise 6.2-1 page 156
@@ -265,16 +277,25 @@ def min_heapify(A, i):
     # Assuming array starts at 1
     root = A[i - 1]
     left = A[i * 2 - 1]
-    right = A[i * 2]
+    # assuming last leaf is "right leaf orphan" i.e ony one child (left)
+    try:
+        right = A[i * 2]
+    except IndexError:
+        if left - root < 0:
+            A[i - 1], A[i * 2 - 1] = A[i * 2 - 1], A[i - 1]
+            min_heapify(A, i * 2)
 
-    if (left - root) < (right - root) and (left - root) < 0:
+        return
+
+    if (left - root) <= (right - root) and (left - root) < 0:
         A[i - 1], A[i * 2 - 1] = A[i * 2 - 1], A[i - 1]
+        min_heapify(A, i * 2)
 
-    elif (right - root) < (left - root) and (right - root) < 0:
+    elif (right - root) <= (left - root) and (right - root) < 0:
         A[i - 1], A[i * 2] = A[i * 2], A[i - 1]
+        min_heapify(A, i * 2 + 1)
 
-    max_heapify(A, i * 2)
-    max_heapify(A, i * 2 + 1)
+    return
 
 
 """ 
