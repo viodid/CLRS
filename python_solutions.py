@@ -5,19 +5,23 @@ CLRS : Introduction to Algorithms
 """
 
 
+class customError(Exception):
+    pass
+
+
 def main():
     # creating random list
     myList = random.randint(10, size=20).tolist()
     solution = []  # to store some algorithms solutions
     # comparing input list vs output afterwards
-    print(f"input: {myList}")
+    # print(f"input: {myList}")
     # sorting functions (toggle True to apply)
     insertionSort(myList)
     selectionSort(myList)
     mergeSort(myList)
     existSum(myList, 2, solution)
     return_list = heapSort(myList)
-    print(f"output:{myList}, {return_list}")
+    # print(f"output:{myList}, {return_list}")
 
 
 """
@@ -250,11 +254,6 @@ def build_max_heap(Arr):
         max_heapify(Arr, i)
 
 
-a = [8, 7, 5, 1, 4, 9]
-build_max_heap(a)
-print(a)
-
-
 def build_min_heap(Arr):
     for i in range(len(Arr) // 2, 0, -1):
         min_heapify(Arr, i)
@@ -360,7 +359,44 @@ def heap_extract_max(A):
     return max
 
 
+def heap_increase_key(A, i, key):
+    if len(A) <= 1:
+        raise customError("array must be bigger than 1")
+
+    if key < A[i]:
+        raise customError("new key is smaller than current key")
+
+    A[i] = key
+
+    def heap_increase_key_recursive(A, i, key):
+
+        if i <= 0:
+            return
+
+        currentNode = i
+
+        if i % 2 == 0:
+            parentNode = (i // 2) - 1
+
+        else:
+            parentNode = (i - 1) // 2
+
+        if A[parentNode] < A[currentNode]:
+            A[currentNode], A[parentNode] = A[parentNode], A[currentNode]
+            heap_increase_key_recursive(A, parentNode, key)
+
+        return
+
+    heap_increase_key_recursive(A, i, key)
+
+    return
+
+
 heap = [15, 13, 9, 5, 12, 8, 7, 4, 0, 6, 2, 1]
+
+heap_increase_key(heap, 11, 14)
+
+print(heap)
 
 
 arr2 = [5, 13, 2, 25, 7, 17, 20, 8, 4]
