@@ -224,6 +224,7 @@ def existSum(Arr, v, solution, toggle=False):  # v = number to match
 
 def max_heapify(A, i):
     # assuming array starts at index 0
+    # if index i is bigger than the parent of the last leaf
     if i > (len(A) // 2) - 1:
         return
 
@@ -345,10 +346,6 @@ def heapSort(A):
     return return_list
 
 
-heap = [15, 13, 9, 5, 12, 8, 7, 4, 0, 6, 2, 1]
-
-print(heapSort(heap))
-
 """
 exercise 6.5-1
 """
@@ -381,12 +378,7 @@ def heap_increase_key(A, i, key):
             return
 
         currentNode = i
-
-        if i % 2 == 0:
-            parentNode = (i // 2) - 1
-
-        else:
-            parentNode = (i - 1) // 2
+        parentNode = ((i + 1) // 2) - 1
 
         if A[parentNode] < A[currentNode]:
             A[currentNode], A[parentNode] = A[parentNode], A[currentNode]
