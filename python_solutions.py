@@ -20,7 +20,7 @@ def main():
     selectionSort(myList)
     mergeSort(myList)
     existSum(myList, 2, solution)
-    return_list = heapSort(myList)
+    # return_list = heapSort(myList)
     # print(f"output:{myList}, {return_list}")
 
 
@@ -120,6 +120,7 @@ def mergeSort(Arr, toggle=False):
     2.3-5
     """
     if toggle:
+
         if len(Arr) <= 1:
             return
 
@@ -131,6 +132,7 @@ def mergeSort(Arr, toggle=False):
         mergeSort(right, True)
 
         merge(Arr, left, right)
+
     return None
 
 
@@ -221,41 +223,41 @@ def existSum(Arr, v, solution, toggle=False):  # v = number to match
 
 
 def max_heapify(A, i):
-
-    if i > len(A) // 2:
+    # assuming array starts at index 0
+    if i > (len(A) // 2) - 1:
         return
 
-    # Assuming array starts at 1
-    root = A[i - 1]
-    left = A[i * 2 - 1]
+    root = i
+    left = (i * 2) + 1
+    print(root, left)
     # assuming last leaf is "right leaf orphan" i.e ony one child (left)
     try:
-        right = A[i * 2]
+        right = (i + 1) * 2
+        A[right]
     except IndexError:
-        if left - root > 0:
-            A[i - 1], A[i * 2 - 1] = A[i * 2 - 1], A[i - 1]
-            max_heapify(A, i * 2)
+        if A[left] - A[root] > 0:
+            A[root], A[left] = A[left], A[root]
         return
 
     # select the most significant leaf
-    if (left - root) >= (right - root) and (left - root) > 0:
-        A[i - 1], A[i * 2 - 1] = A[i * 2 - 1], A[i - 1]
-        max_heapify(A, i * 2)
+    if (A[left] - A[root]) >= (A[right] - A[root]) and (A[left] - A[root]) > 0:
+        A[root], A[left] = A[left], A[root]
+        max_heapify(A, left)
 
-    elif (right - root) >= (left - root) and (right - root) > 0:
-        A[i - 1], A[i * 2] = A[i * 2], A[i - 1]
-        max_heapify(A, i * 2 + 1)
+    elif (A[right] - A[root]) >= (A[left] - A[root]) and (A[right] - A[root]) > 0:
+        A[root], A[right] = A[right], A[root]
+        max_heapify(A, right)
 
     return
 
 
 def build_max_heap(Arr):
-    for i in range(len(Arr) // 2, 0, -1):
+    for i in range((len(Arr) - 1) // 2, -1, -1):
         max_heapify(Arr, i)
 
 
 def build_min_heap(Arr):
-    for i in range(len(Arr) // 2, 0, -1):
+    for i in range((len(Arr) - 1) // 2, -1, -1):
         min_heapify(Arr, i)
 
 
@@ -269,30 +271,29 @@ def build_min_heap(Arr):
 
 
 def min_heapify(A, i):
-
-    if i > len(A) // 2:
+    # assuming array starts at index 0
+    if i > (len(A) - 1) // 2:
         return
 
-    # Assuming array starts at 1
-    root = A[i - 1]
-    left = A[i * 2 - 1]
+    root = i
+    left = (i * 2) + 1
     # assuming last leaf is "right leaf orphan" i.e ony one child (left)
     try:
-        right = A[i * 2]
+        right = (i + 1) * 2
+        A[right]
     except IndexError:
-        if left - root < 0:
-            A[i - 1], A[i * 2 - 1] = A[i * 2 - 1], A[i - 1]
-            min_heapify(A, i * 2)
-
+        if A[left] - A[root] < 0:
+            A[root], A[left] = A[left], A[root]
         return
 
-    if (left - root) <= (right - root) and (left - root) < 0:
-        A[i - 1], A[i * 2 - 1] = A[i * 2 - 1], A[i - 1]
-        min_heapify(A, i * 2)
+    # select the most significant leaf
+    if (A[left] - A[root]) <= (A[right] - A[root]) and (A[left] - A[root]) < 0:
+        A[root], A[left] = A[left], A[root]
+        min_heapify(A, left)
 
-    elif (right - root) <= (left - root) and (right - root) < 0:
-        A[i - 1], A[i * 2] = A[i * 2], A[i - 1]
-        min_heapify(A, i * 2 + 1)
+    elif (A[right] - A[root]) <= (A[left] - A[root]) and (A[right] - A[root]) < 0:
+        A[root], A[right] = A[right], A[root]
+        min_heapify(A, right)
 
     return
 
@@ -333,15 +334,20 @@ def heapSort(A):
     # initilize future final sorted list
     return_list = [None] * len(A)
     build_max_heap(A)
-    # print(A)
     # i = length.heap decrement by 1 each loop iteration
     for i in range(len(A) - 1, -1, -1):
         # swap last heap element with the heap's root
         A[0], A[len(A) - 1] = A[len(A) - 1], A[0]
         return_list[i] = A.pop()
-        max_heapify(A, 1)
+        print(A)
+        max_heapify(A, 0)
+
     return return_list
 
+
+heap = [15, 13, 9, 5, 12, 8, 7, 4, 0, 6, 2, 1]
+
+print(heapSort(heap))
 
 """
 exercise 6.5-1
@@ -360,6 +366,7 @@ def heap_extract_max(A):
 
 
 def heap_increase_key(A, i, key):
+
     if len(A) <= 1:
         raise customError("array must be bigger than 1")
 
@@ -392,9 +399,18 @@ def heap_increase_key(A, i, key):
     return
 
 
+def max_heap_insert(A, key):
+    # assuming positive natural numbers list
+    A.append(-1)
+    heap_increase_key(A, len(A) - 1, key)
+
+
 heap = [15, 13, 9, 5, 12, 8, 7, 4, 0, 6, 2, 1]
 
-heap_increase_key(heap, 11, 14)
+"""
+Exercise 6.5-2
+"""
+max_heap_insert(heap, 10)
 
 print(heap)
 
