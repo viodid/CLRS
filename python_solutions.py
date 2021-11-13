@@ -273,7 +273,7 @@ def build_min_heap(Arr):
 
 def min_heapify(A, i):
     # assuming array starts at index 0
-    if i > (len(A) - 1) // 2:
+    if i > (len(A) // 2) - 1:
         return
 
     root = i
@@ -353,19 +353,19 @@ exercise 6.5-1
 
 def heap_extract_max(A):
     if len(A) <= 1:
-        raise IndexError
-    max = A[0]
+        raise customError("array must be longer than 1")
+    maximum = A[0]
     # - 1 to access the last element in the list (len(list) out of range)
     A[0], A[len(A) - 1] = A[len(A) - 1], A[0]
     A.pop()
-    max_heapify(A, 1)
-    return max
+    max_heapify(A, 0)
+    return maximum
 
 
 def heap_increase_key(A, i, key):
 
     if len(A) <= 1:
-        raise customError("array must be bigger than 1")
+        raise customError("array must be longer than 1")
 
     if key < A[i]:
         raise customError("new key is smaller than current key")
@@ -397,17 +397,74 @@ def max_heap_insert(A, key):
     heap_increase_key(A, len(A) - 1, key)
 
 
-heap = [15, 13, 9, 5, 12, 8, 7, 4, 0, 6, 2, 1]
-
 """
 Exercise 6.5-2
 """
-max_heap_insert(heap, 10)
+heap = [15, 13, 9, 5, 12, 8, 7, 4, 0, 6, 2, 1]
 
-print(heap)
+"""
+Exercise 6.5-3
+"""
 
 
-arr2 = [5, 13, 2, 25, 7, 17, 20, 8, 4]
+def heap_minimun(A):
+    build_min_heap(A)
+    return A[0]
+
+
+def heap_extract_min(A):
+    if len(A) <= 1:
+        raise customError("array must be longer than 1")
+    build_min_heap(A)
+    minimun = A[0]
+    # - 1 to access the last element in the list (len(list) out of range)
+    A[0], A[len(A) - 1] = A[len(A) - 1], A[0]
+    A.pop()
+    min_heapify(A, 0)
+    return minimun
+
+
+def min_heap_insert(A, key):
+
+    build_min_heap(A)
+
+    def heap_decrease_key(A, i, key):
+        if len(A) <= 1:
+            raise customError("array must be longer than 1")
+
+        if key > A[i]:
+            raise customError("new key is bigger than current key")
+
+        A[i] = key
+
+        def heap_decrease_key_recursive(A, i, key):
+
+            if i <= 0:
+                return
+
+            currentNode = i
+            parentNode = ((i + 1) // 2) - 1
+
+            if A[parentNode] > A[currentNode]:
+                A[currentNode], A[parentNode] = A[parentNode], A[currentNode]
+                heap_decrease_key_recursive(A, parentNode, key)
+
+            return
+
+        heap_decrease_key_recursive(A, i, key)
+
+        return
+
+    # assuming positive natural numbers list
+    A.append(1000000)  # I don't like it but...
+    heap_decrease_key(A, len(A) - 1, key)
+
+
+"""
+Exercise 6.5-4
+
+To not break the heap property and to have two different functions working fine both together and alone.
+"""
 
 
 main()
