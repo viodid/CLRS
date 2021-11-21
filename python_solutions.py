@@ -1,3 +1,4 @@
+from typing import Counter
 from numpy import random
 
 """
@@ -230,7 +231,7 @@ def max_heapify(A, i):
 
     root = i
     left = (i * 2) + 1
-    print(root, left)
+
     # assuming last leaf is "right leaf orphan" i.e ony one child (left)
     try:
         right = (i + 1) * 2
@@ -340,7 +341,7 @@ def heapSort(A):
         # swap last heap element with the heap's root
         A[0], A[len(A) - 1] = A[len(A) - 1], A[0]
         return_list[i] = A.pop()
-        print(A)
+        print(A, Stack.mapping)
         max_heapify(A, 0)
 
     return return_list
@@ -364,7 +365,7 @@ def heap_extract_max(A):
 
 def heap_increase_key(A, i, key):
 
-    if len(A) <= 1:
+    if len(A) <= 0:
         raise customError("array must be longer than 1")
 
     if key < A[i]:
@@ -465,6 +466,27 @@ Exercise 6.5-4
 
 To not break the heap property and to have two different functions working fine both together and alone.
 """
+
+"""
+Execise 6.5-7
+"""
+
+
+class Stack:
+    counter = 0
+    mapping = {}
+
+    def __init__(self, name):
+        self.name = name
+
+    def push(self, A):
+        Stack.counter += 1
+        max_heap_insert(A, self.counter)
+        Stack.mapping[self.counter] = self.name
+
+
+def pop(A):
+    return Stack.mapping[heap_extract_max(A)]
 
 
 main()
