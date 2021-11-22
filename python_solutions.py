@@ -1,5 +1,5 @@
 from typing import Counter
-from numpy import random
+from numpy import e, random
 
 """
 CLRS : Introduction to Algorithms
@@ -430,8 +430,8 @@ def min_heap_insert(A, key):
     build_min_heap(A)
 
     def heap_decrease_key(A, i, key):
-        if len(A) <= 1:
-            raise customError("array must be longer than 1")
+        if len(A) <= 0:
+            raise customError("array must be longer than 0")
 
         if key > A[i]:
             raise customError("new key is bigger than current key")
@@ -484,9 +484,24 @@ class Stack:
         max_heap_insert(A, self.counter)
         Stack.mapping[self.counter] = self.name
 
+    def pop(A):
+        return Stack.mapping[heap_extract_max(A)]
 
-def pop(A):
-    return Stack.mapping[heap_extract_max(A)]
+
+class Queue:
+    counter = 0
+    mapping = {}
+
+    def __init__(self, name):
+        self.name = name
+
+    def push(self, A):
+        Queue.counter += 1
+        min_heap_insert(A, self.counter)
+        Queue.mapping[self.counter] = self.name
+
+    def pop(A):
+        return Queue.mapping[heap_extract_min(A)]
 
 
 main()
