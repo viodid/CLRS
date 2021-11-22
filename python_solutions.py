@@ -366,7 +366,7 @@ def heap_extract_max(A):
 def heap_increase_key(A, i, key):
 
     if len(A) <= 0:
-        raise customError("array must be longer than 1")
+        raise customError("array must be longer than 0")
 
     if key < A[i]:
         raise customError("new key is smaller than current key")
@@ -502,6 +502,24 @@ class Queue:
 
     def pop(A):
         return Queue.mapping[heap_extract_min(A)]
+
+
+"""
+6.5-8
+"""
+
+
+def heap_delete(A, i):
+
+    if len(A) <= 0:
+        raise customError("array must be longer than 0")
+    # exchange current index/node with the last element/node
+    A[i], A[len(A) - 1] = A[len(A) - 1], A[i]
+    # delete last element (node we want to remove)
+    A.pop()
+    # restart the heap property
+    max_heapify(A, i)
+    # O(log n) time complexity
 
 
 main()
