@@ -20,7 +20,7 @@ def main():
     insertionSort(myList)
     selectionSort(myList)
     mergeSort(myList)
-    existSum([1, 7, 9, 4], 5, solution, True)
+    existSum([1, 7, 9, 4], 5, solution)
     # return_list = heapSort(myList)
     # print(f"output:{solution}")
 
@@ -525,5 +525,11 @@ def heap_delete(A, i):
     max_heapify(A, i)
     # O(log n) time complexity
 
+
+"""
+Problem 6-1
+  a. No, because in max-heap-insert we are inserting the elements into the heap through the last branch/node and in max-heapify 
+  we are iterating through every element and changing them in their array position.
+"""
 
 main()
