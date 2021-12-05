@@ -12,7 +12,7 @@ class customError(Exception):
 
 def main():
     # creating random list
-    myList = random.randint(10, size=20).tolist()
+    myList = random.randint(2, size=4).tolist()
     solution = []  # to store some algorithms solutions
     # comparing input list vs output afterwards
     # print(f"input: {myList}")
@@ -20,9 +20,9 @@ def main():
     insertionSort(myList)
     selectionSort(myList)
     mergeSort(myList)
-    existSum(myList, 2, solution)
+    existSum([1, 7, 9, 4], 5, solution, True)
     # return_list = heapSort(myList)
-    # print(f"output:{myList}, {return_list}")
+    # print(f"output:{solution}")
 
 
 """
@@ -113,13 +113,15 @@ def merge(Arr, left, right):
             right.remove(right[0])
 
 
+"""
+Exercises page 39
+
+2.3-5
+"""
+
+
 def mergeSort(Arr, toggle=False):
 
-    """
-    Exercises page 39
-
-    2.3-5
-    """
     if toggle:
 
         if len(Arr) <= 1:
@@ -484,6 +486,7 @@ class Stack:
         max_heap_insert(A, self.counter)
         Stack.mapping[self.counter] = self.name
 
+    @staticmethod
     def pop(A):
         return Stack.mapping[heap_extract_max(A)]
 
@@ -500,6 +503,7 @@ class Queue:
         min_heap_insert(A, self.counter)
         Queue.mapping[self.counter] = self.name
 
+    @staticmethod
     def pop(A):
         return Queue.mapping[heap_extract_min(A)]
 
