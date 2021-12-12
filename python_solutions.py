@@ -533,7 +533,8 @@ Problem 6-1
 
 """
 Problem 6-2
-  a. Same way?
+  a. parent: (index - 1) // d
+     child: (parentIndex * d_ary) + leaf_node([0...d_ary - 1])
   b. 1log(d)n
   c. 
 """
@@ -627,6 +628,23 @@ def d_ary_heap_increase_key(A, i, key, d):
     d_ary_heap_increase_key_recursive(A, i, key, d)
 
     return
+
+
+"""
+Problem 6-3
+a. 
+2 - 3 - 4 - 5
+8 - 9 - 12- 14
+16- ∞ - ∞ - ∞
+∞ - ∞ - ∞ - ∞
+
+b. If the top left element is ∞, then all the elements on the first row need to be ∞. 
+But if this is the case, all other elements need to be ∞ because they are larger than the first element on their column.
+
+If the bottom right element is smaller than ∞, all the elements on the bottom row need to be smaller than ∞.
+But so are the other elements in the tableau, because each is smaller than the bottom element of its column.
+
+"""
 
 
 main()
