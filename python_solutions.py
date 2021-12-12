@@ -1,5 +1,4 @@
-from typing import Counter
-from numpy import e, random
+from numpy import random
 
 """
 CLRS : Introduction to Algorithms
@@ -227,7 +226,7 @@ def existSum(Arr, v, solution, toggle=False):  # v = number to match
 
 def max_heapify(A, i):
     # assuming array starts at index 0
-    # if index i is bigger than the parent of the last leaf
+    # if index i is bigger than the parent of the last leaf, stop recursion
     if i > (len(A) // 2) - 1:
         return
 
@@ -343,7 +342,6 @@ def heapSort(A):
         # swap last heap element with the heap's root
         A[0], A[len(A) - 1] = A[len(A) - 1], A[0]
         return_list[i] = A.pop()
-        print(A, Stack.mapping)
         max_heapify(A, 0)
 
     return return_list
@@ -528,8 +526,107 @@ def heap_delete(A, i):
 
 """
 Problem 6-1
-  a. No, because in max-heap-insert we are inserting the elements into the heap through the last branch/node and in max-heapify 
-  we are iterating through every element and changing them in their array position.
+  a. No, because in max-heap-insert we are inserting the elements into the heap through the last branch/node and with 
+  max-heapify we are iterating through every element and changing them in their array position. That makes a different
+  distribution of the heap.
 """
+
+"""
+Problem 6-2
+  a. Same way?
+  b. 1log(d)n
+  c. 
+"""
+
+
+def d_ary_max_heapify(A, i, d):
+    # assuming array starts at index 0
+    # if index i is bigger than the parent of the last leaf, stop recursion
+    if i > (len(A) // 2) - 1:
+        return
+
+    parent = i
+    # store child - parent value
+    difference = 0
+    # most significant leaf
+    mostSignificant = None
+    # child node
+    try:
+        for j in range(1, d + 1):
+            child = (parent * d) + j
+            # select the most significant leaf
+            if A[child] - A[parent] > difference:
+                difference = A[child] - A[parent]
+                mostSignificant = child
+    except IndexError:
+        pass
+    # swap values
+    print(mostSignificant)
+    if mostSignificant:
+        A[mostSignificant], A[parent] = A[parent], A[mostSignificant]
+        d_ary_max_heapify(A, mostSignificant, d)
+
+    return
+
+
+def build_max_d_heap(A, d):
+    for i in range((len(A) - 1) // 2, -1, -1):
+        d_ary_max_heapify(A, i, d)
+
+
+def d_ary_heap_extract_max(A, d):
+    if len(A) <= 1:
+        raise customError("array must be longer than 1")
+    maximum = A[0]
+    A[0], A[len(A) - 1] = A[len(A) - 1], A[0]
+    A.pop()
+    d_ary_max_heapify(A, 0, d)
+    return maximum
+
+
+"""
+d. O(logd n)
+"""
+
+
+def d_ary_max_heap_insert(A, key, d):
+    # assuming positive natural numbers list
+    A.append(-1)
+    d_ary_heap_increase_key(A, len(A) - 1, key, d)
+
+
+"""
+e. O(logd n)
+"""
+
+
+def d_ary_heap_increase_key(A, i, key, d):
+
+    if len(A) <= 0:
+        raise customError("array must be longer than 0")
+
+    if key < A[i]:
+        raise customError("new key is smaller than current key")
+
+    A[i] = key
+
+    def d_ary_heap_increase_key_recursive(A, i, key, d):
+
+        if i <= 0:
+            return
+
+        currentNode = i
+        parentNode = (i - 1) // d
+
+        if A[parentNode] < A[currentNode]:
+            A[currentNode], A[parentNode] = A[parentNode], A[currentNode]
+            d_ary_heap_increase_key_recursive(A, parentNode, key, d)
+
+        return
+
+    d_ary_heap_increase_key_recursive(A, i, key, d)
+
+    return
+
 
 main()
