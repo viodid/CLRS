@@ -224,6 +224,9 @@ def existSum(Arr, v, solution, toggle=False):  # v = number to match
         merge(Arr, left, right, v, solution)
 
 
+"""HEAP SORT"""
+
+
 def max_heapify(A, i):
     # assuming array starts at index 0
     # if index i is bigger than the parent of the last leaf, stop recursion
@@ -562,7 +565,6 @@ def d_ary_max_heapify(A, i, d):
     except IndexError:
         pass
     # swap values
-    print(mostSignificant)
     if mostSignificant:
         A[mostSignificant], A[parent] = A[parent], A[mostSignificant]
         d_ary_max_heapify(A, mostSignificant, d)
@@ -643,8 +645,28 @@ But if this is the case, all other elements need to be ∞ because they are larg
 
 If the bottom right element is smaller than ∞, all the elements on the bottom row need to be smaller than ∞.
 But so are the other elements in the tableau, because each is smaller than the bottom element of its column.
-
 """
+
+"""QUICK SORT"""
+
+"""Exercise 7.1-1"""
+
+A = [13, 19, 9, 5, 12, 8, 7, 4, 21, 2, 6, 11]
+
+
+def partition(A, p, r):
+    x = A[r]
+    i = p - 1
+    for j in range(p, r):
+        if A[j] <= x:
+            i += 1
+            A[i], A[j] = A[j], A[i]
+    A[r], A[i + 1] = A[i + 1], A[r]
+    return i + 1
+
+
+print(partition(A, 0, len(A) - 1))
+print(A)
 
 
 main()
