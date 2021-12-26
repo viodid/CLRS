@@ -487,9 +487,9 @@ class Stack:
         max_heap_insert(A, self.counter)
         Stack.mapping[self.counter] = self.name
 
-    @staticmethod
-    def pop(A):
-        return Stack.mapping[heap_extract_max(A)]
+    @classmethod
+    def pop(cls, A):
+        return cls.mapping[heap_extract_max(A)]
 
 
 class Queue:
@@ -504,9 +504,9 @@ class Queue:
         min_heap_insert(A, self.counter)
         Queue.mapping[self.counter] = self.name
 
-    @staticmethod
-    def pop(A):
-        return Queue.mapping[heap_extract_min(A)]
+    @classmethod
+    def pop(cls, A):
+        return cls.mapping[heap_extract_min(A)]
 
 
 """
@@ -665,8 +665,27 @@ def partition(A, p, r):
     return i + 1
 
 
-print(partition(A, 0, len(A) - 1))
-print(A)
+"""Exercise 7.1-2
+    The value of q would be r, when all values in the array A[p..q] have the same value.
+"""
+
+
+def partition_same_value(A, p, r):
+    x = A[r]
+    i = p - 1
+    for j in range(p, r):
+        if A[j] < x:
+            i += 1
+            A[i], A[j] = A[j], A[i]
+    A[r], A[i + 1] = A[i + 1], A[r]
+    if p - 1 == i:
+        return (p + r) // 2
+    return i + 1
+
+
+"""Exercise 7.1-4
+    Flip the condition on line 4. From <= to >=.
+"""
 
 
 main()
