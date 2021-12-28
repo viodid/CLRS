@@ -224,7 +224,7 @@ def existSum(Arr, v, solution, toggle=False):  # v = number to match
         merge(Arr, left, right, v, solution)
 
 
-"""HEAP SORT"""
+""" ---------------- HEAP SORT ---------------- """
 
 
 def max_heapify(A, i):
@@ -471,7 +471,7 @@ To not break the heap property and to have two different functions working fine 
 """
 
 """
-Execise 6.5-7
+Exercise 6.5-7
 """
 
 
@@ -647,7 +647,7 @@ If the bottom right element is smaller than ∞, all the elements on the bottom 
 But so are the other elements in the tableau, because each is smaller than the bottom element of its column.
 """
 
-"""QUICK SORT"""
+""" ---------------- QUICK SORT ---------------- """
 
 """Exercise 7.1-1"""
 
@@ -685,6 +685,32 @@ def partition_same_value(A, p, r):
 
 """Exercise 7.1-4
     Flip the condition on line 4. From <= to >=.
+"""
+
+"""
+Exercise 7.2-2
+    O(n**2), since one of the partitions is always empty.
+"""
+
+"""
+Exercise 7.2-3
+    In a hypothetical array sorted in decreasing order, the pivot would be the smallest number in the array.
+    Therefore, one partition would be always empty. O(n**2)
+"""
+
+"""
+Exercise 7.2-4
+    Instead of resorting the whole array, insertion sort would pick the unordered elements and put them in order. O(n)
+"""
+
+"""
+Exercise 7.3-1
+    Because of the property of randomness, makes no sense to expect one unique case throughout the outputs.
+"""
+
+"""
+Exercise 7.3-2
+    O(n)
 """
 
 
