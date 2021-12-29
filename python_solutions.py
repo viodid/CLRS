@@ -12,15 +12,10 @@ class customError(Exception):
 def main():
     # creating random list
     myList = random.randint(2, size=4).tolist()
-    solution = []  # to store some algorithms solutions
-    # comparing input list vs output afterwards
-    # print(f"input: {myList}")
     # sorting functions (toggle True to apply)
     insertionSort(myList)
     selectionSort(myList)
     mergeSort(myList)
-    existSum([1, 7, 9, 4], 5, solution)
-    # return_list = heapSort(myList)
     # print(f"output:{solution}")
 
 
@@ -665,7 +660,8 @@ def partition(A, p, r):
     return i + 1
 
 
-"""Exercise 7.1-2
+"""
+Exercise 7.1-2
     The value of q would be r, when all values in the array A[p..q] have the same value.
 """
 
@@ -683,7 +679,8 @@ def partition_same_value(A, p, r):
     return i + 1
 
 
-"""Exercise 7.1-4
+"""
+Exercise 7.1-4
     Flip the condition on line 4. From <= to >=.
 """
 
@@ -714,4 +711,18 @@ Exercise 7.3-2
 """
 
 
-main()
+def quickSort(A, p, r):
+    if p < r:
+        q = partition(A, p, r)
+        quickSort(A, p, q - 1)
+        quickSort(A, q + 1, r)
+
+    return None
+
+
+b = [6, 3, 5, 1, 4]
+quickSort(b, 0, len(b) - 1)
+print(b)
+
+if __name__ == "__main__":
+    main()
