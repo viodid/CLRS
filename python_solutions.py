@@ -11,34 +11,33 @@ class customError(Exception):
 
 def main():
     # creating random list
-    myList = random.randint(2, size=4).tolist()
-    # sorting functions (toggle True to apply)
-    insertionSort(myList)
-    selectionSort(myList)
-    mergeSort(myList)
-    # print(f"output:{solution}")
+    # myList = random.randint(2, size=4).tolist()
+    # insertionSort(myList)
+    # selectionSort(myList)
+    # mergeSort(myList)
+    # print(f"output:{myList}")
+
+    """
+    Exercises page 22
+
+    2.1-2
+    """
 
 
-"""
-Exercises page 22
+def insertionSort(myList):
 
-2.1-2
-"""
+    for i in range(1, len(myList)):
+        key = myList[i]
+        j = i - 1
+        while j >= 0 and myList[j] > key:
+            myList[j + 1] = myList[j]
+            j -= 1
+        myList[j + 1] = key
 
-
-def insertionSort(myList, toggle=False):
-    if toggle:
-        for i in range(1, len(myList)):
-            key = myList[i]
-            j = i - 1
-            while j >= 0 and myList[j] < key:
-                myList[j + 1] = myList[j]
-                j -= 1
-            myList[j + 1] = key
-        """
-        Θ(n**2), Ω(n)
-        """
-        return None
+    return None
+    """
+    Θ(n**2), Ω(n)
+    """
 
 
 """
@@ -52,15 +51,15 @@ Exercises page 29
 """
 
 
-def selectionSort(myList, toggle=False):
-    if toggle:
-        for j in range(len(myList) - 1):
-            number = myList[j]
-            for i in range(j + 1, len(myList)):
-                if number > myList[i]:
-                    number = myList[i]
-            myList[myList.index(number, j)] = myList[j]
-            myList[j] = number
+def selectionSort(myList):
+    for j in range(len(myList) - 1):
+        number = myList[j]
+        for i in range(j + 1, len(myList)):
+            if number > myList[i]:
+                number = myList[i]
+        myList[myList.index(number, j)] = myList[j]
+        myList[j] = number
+
     return None
 
 
@@ -114,21 +113,19 @@ Exercises page 39
 """
 
 
-def mergeSort(Arr, toggle=False):
+def mergeSort(Arr):
 
-    if toggle:
+    if len(Arr) <= 1:
+        return
 
-        if len(Arr) <= 1:
-            return
+    mid = len(Arr) // 2
+    left = Arr[:mid]
+    right = Arr[mid:]
 
-        mid = len(Arr) // 2
-        left = Arr[:mid]
-        right = Arr[mid:]
+    mergeSort(left)
+    mergeSort(right)
 
-        mergeSort(left, True)
-        mergeSort(right, True)
-
-        merge(Arr, left, right)
+    merge(Arr, left, right)
 
     return None
 
@@ -720,9 +717,30 @@ def quickSort(A, p, r):
     return None
 
 
-b = [6, 3, 5, 1, 4]
-quickSort(b, 0, len(b) - 1)
+"""
+Exercise 7.4-5
+"""
+
+
+def quickSortInsertion(A, p, r):
+    if p < r - 2:
+        q = partition(A, p, r)
+        quickSortInsertion(A, p, q - 1)
+        quickSortInsertion(A, q + 1, r)
+    return None
+
+
+def quickSortInsertionSort(A, p, r):
+    quickSortInsertion(A, p, r)
+    insertionSort(A)
+    return None
+
+
+b = [6, 3, 5, 1, 4, 7, 2, 0, 11, 10, 8, 9]
+b = random.randint(100, size=38).tolist()
+quickSortInsertionSort(b, 0, len(b) - 1)
 print(b)
+
 
 if __name__ == "__main__":
     main()
