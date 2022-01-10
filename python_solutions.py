@@ -16,12 +16,14 @@ def main():
     # selectionSort(myList)
     # mergeSort(myList)
     # print(f"output:{myList}")
+    return 0
 
-    """
-    Exercises page 22
 
-    2.1-2
-    """
+"""
+Exercises page 22
+
+2.1-2
+"""
 
 
 def insertionSort(myList):
@@ -736,10 +738,23 @@ def quickSortInsertionSort(A, p, r):
     return None
 
 
-b = [6, 3, 5, 1, 4, 7, 2, 0, 11, 10, 8, 9]
-b = random.randint(100, size=38).tolist()
-quickSortInsertionSort(b, 0, len(b) - 1)
-print(b)
+# b = [6, 3, 5, 1, 4, 7, 2, 0, 11, 10, 8, 9]
+# b = random.randint(100, size=38).tolist()
+# quickSortInsertionSort(b, 0, len(b) - 1)
+# print(b)
+
+
+""" ---------------- COUNTING SORT ---------------- """
+
+
+def countingSort(A, B, k):
+    C = [0] * (k + 1)
+    for j in range(0, len(A)):
+        C[A[j]] = C[A[j]] + 1
+    return C
+
+
+print(countingSort([2, 5, 3, 0, 2, 3, 0, 3], True, 5))
 
 
 if __name__ == "__main__":
