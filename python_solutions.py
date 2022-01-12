@@ -1,4 +1,5 @@
 from numpy import random
+import time
 
 """
 CLRS : Introduction to Algorithms
@@ -739,7 +740,6 @@ def quickSortInsertionSort(A, p, r):
 
 
 # b = [6, 3, 5, 1, 4, 7, 2, 0, 11, 10, 8, 9]
-# b = random.randint(100, size=38).tolist()
 # quickSortInsertionSort(b, 0, len(b) - 1)
 # print(b)
 
@@ -749,13 +749,23 @@ def quickSortInsertionSort(A, p, r):
 
 def countingSort(A, B, k):
     C = [0] * (k + 1)
-    for j in range(0, len(A)):
-        C[A[j]] = C[A[j]] + 1
-    return C
+    B = [None] * len(A)
+    for i in range(len(A)):
+        C[A[i]] = C[A[i]] + 1
+    for i in range(1, k + 1):
+        C[i] += C[i - 1]
+    for i in range(len(A) - 1, -1, -1):
+        B[C[A[i]] - 1] = A[i]
+        C[A[i]] = C[A[i]] - 1
+    return B
 
 
-print(countingSort([2, 5, 3, 0, 2, 3, 0, 3], True, 5))
-
+t0 = time.time()
+A = random.randint(50, size=1000000).tolist()
+mergeSort(A)
+t1 = time.time()
+total = t1 - t0
+print(total)
 
 if __name__ == "__main__":
     main()
