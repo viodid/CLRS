@@ -739,15 +739,12 @@ def quickSortInsertionSort(A, p, r):
     return None
 
 
-# b = [6, 3, 5, 1, 4, 7, 2, 0, 11, 10, 8, 9]
-# quickSortInsertionSort(b, 0, len(b) - 1)
-# print(b)
-
-
 """ ---------------- COUNTING SORT ---------------- """
 
 
-def countingSort(A, B, k):
+def countingSort(
+    A, B, k
+):  # A -> input array, B -> sorted array, k -> the largest element in array A
     C = [0] * (k + 1)
     B = [None] * len(A)
     for i in range(len(A)):
@@ -760,12 +757,52 @@ def countingSort(A, B, k):
     return B
 
 
-t0 = time.time()
-A = random.randint(50, size=1000000).tolist()
-mergeSort(A)
-t1 = time.time()
-total = t1 - t0
-print(total)
+"""
+Exercise 8.2-1
+A = [6,0,2,0,1,3,4,6,1,3,2]
+C = [2,2,2,2,1,0,2]
+--------------------------
+C=[2,4,6,8,9,9,11]
+--------------------------
+B=[0,0,0,0,0,2,0,0,0,0,0] -> [0,0,0,0,0,2,0,3,0,0,0] -> [0,0,0,1,0,2,0,3,0,0,0] -> [0,0,0,1,0,2,0,3,0,0,6]
+C=[2,4,5,8,9,9,11]        -> [2,4,5,7,9,9,11]        -> [2,3,5,7,9,9,11]        -> [2,3,5,7,9,9,10]
+and so on.
+"""
+
+"""
+Exercise 8.2-3
+The algorithms still works properly but it is no longer stable since repeated numbers don't preserve their first order.
+"""
+
+"""
+Exercise 8.2-4
+"""
+
+
+def prepocess(A, k):
+    C = [0] * (k + 1)
+    for i in range(len(A)):
+        C[A[i]] = C[A[i]] + 1
+    for i in range(1, k + 1):
+        C[i] += C[i - 1]
+    return C
+
+
+def howManyRange(A, k, a, b):  # a - b numbers range in the array A
+    C = prepocess(
+        A, k
+    )  # array containing the number of integers less than or equal to C[i]
+    return C[b] - C[a]
+
+
+# t0 = time.time()
+# A = random.randint(50, size=100).tolist()
+print(howManyRange([6, 0, 2, 0, 1, 3, 4, 6, 1, 3, 2], 6, 0, 6))
+# mergeSort(A)
+# t1 = time.time()
+# total = t1 - t0
+# print(total)
+
 
 if __name__ == "__main__":
     main()
