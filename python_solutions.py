@@ -39,7 +39,7 @@ def insertionSort(myList):
 
     return None
     """
-    Θ(n**2), Ω(n)
+    Θ(n^2), Ω(n)
     """
 
 
@@ -47,7 +47,7 @@ def insertionSort(myList):
 Exercises page 29
 
 2.2-1
-#Θ(n**3)
+#Θ(n^3)
 
 
 2.2-2
@@ -67,9 +67,9 @@ def selectionSort(myList):
 
 
 """
-Θ(n**2)
+Θ(n^2)
 The last element is already sorted when the secnod last element is sorted in selection sort.
-Ω(n**2), Θ(n**2)
+Ω(n^2), Θ(n^2)
 """
 
 """
@@ -134,35 +134,6 @@ def mergeSort(Arr):
 
 
 def binarySearch(myList, v):
-    """
-    A[a1, a2...an] sorted secuence
-    v = number to match
-
-    ### Recursive ###
-    n = A.length
-    if v == A[n / 2]:
-        return "found"
-    else if A.length == 1:
-        return NULL
-    else if v < A[n/2]:
-        return binarySearch(A[0...n/2])
-    else if v > A[n/2];
-        return binarySearch(A[n/2...n])
-
-    ### Iterative ###
-    Create a copy of the secuence
-    A1 = A.copy
-    n = A1.length
-    while true:
-        if v == A1[n / 2]:
-            return "found"
-        else if A1.length == 1:
-            return NULL
-        else if v < A1[n/2]:
-            A1.drop(A1[n/2...n])
-        else if v > A1[n/2];
-            A1.drop(A1[0...n/2])
-    """
     c = len(myList) // 2  # c = center of the list
     if v == myList[c]:
         return "found"
@@ -172,7 +143,8 @@ def binarySearch(myList, v):
         return binarySearch(myList[:c], v)
     elif v > myList[c]:
         return binarySearch(myList[c + 1 :], v)
-    # Θ(logn), Ω(1)
+    """Θ(logn), 
+        Ω(1)"""
 
 
 """
@@ -534,7 +506,6 @@ Problem 6-2
   a. parent: (index - 1) // d
      child: (parentIndex * d_ary) + leaf_node([0...d_ary - 1])
   b. 1log(d)n
-  c. 
 """
 
 
@@ -583,7 +554,7 @@ def d_ary_heap_extract_max(A, d):
 
 
 """
-d. O(logd n)
+d. Θ(logd n)
 """
 
 
@@ -594,7 +565,7 @@ def d_ary_max_heap_insert(A, key, d):
 
 
 """
-e. O(logd n)
+e. Θ(logd n)
 """
 
 
@@ -707,7 +678,7 @@ Exercise 7.3-1
 
 """
 Exercise 7.3-2
-    O(n)
+    Θ(n)
 """
 
 
@@ -718,6 +689,9 @@ def quickSort(A, p, r):
         quickSort(A, q + 1, r)
 
     return None
+    """Θ(nlogn)
+        O(n^2)
+        Ω(nlogn)"""
 
 
 """
@@ -743,8 +717,10 @@ def quickSortInsertionSort(A, p, r):
 
 
 def countingSort(
-    A, B, k
-):  # A -> input array, B -> sorted array, k -> the largest element in array A
+    A,  # A -> input array
+    B,  # B -> sorted array,
+    k,  # k -> the largest element in array A
+):
     C = [0] * (k + 1)
     B = [None] * len(A)
     for i in range(len(A)):
@@ -755,6 +731,7 @@ def countingSort(
         B[C[A[i]] - 1] = A[i]
         C[A[i]] = C[A[i]] - 1
     return B
+    """Θ(k + n)"""
 
 
 """
@@ -802,6 +779,34 @@ print(howManyRange([6, 0, 2, 0, 1, 3, 4, 6, 1, 3, 2], 6, 0, 6))
 # t1 = time.time()
 # total = t1 - t0
 # print(total)
+
+
+""" ---------------- RADIX SORT ---------------- """
+
+"""
+Exercise 8.3-1
+COW SEA TAB BAR
+DOG TEA BAR BIG
+SEA MOB EAR BOX
+RUG TAB TAR COW
+ROW RUG SEA DIG
+MOB DOG TEA DOG
+BOX DIG DIG EAR
+TAB BIG BIG FOX
+BAR BAR MOB MOB
+EAR EAR DOG NOW
+TAR TAR COW ROW
+DIG COW ROW RUG
+BIG ROW NOW SEA
+TEA NOW BOX TAB
+NOW BOX FOX TAR
+FOX FOX RUG TEA
+"""
+
+"""
+Exercise 8.3-2
+
+"""
 
 
 if __name__ == "__main__":
